@@ -1,0 +1,10 @@
+.div-parent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.div-child {
+    align-items: center;
+    text-align: center;
+}

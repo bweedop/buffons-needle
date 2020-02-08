@@ -1,69 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129105851-1">
+        </script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-129105851-1');
+        </script>
         <meta charset="utf-8">
         <meta id="author" name="K. Bodie Weedop">
         <title>Needle Problem | K. Bodie Weedop</title>
-        <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/addons/p5.dom.js"></script>
+        <script src="./assets/js/main.js"></script>
+        <link rel="stylesheet" href="./assets/css/style.css">
     </head>
     <body>
-        <div>
-            <p id="pi_est"></p>
+        <div class="div-parent">
+            <div class="div-child">
+                <h2>Buffon's Needle Problem</h2>
+                <p>This is a basic visualization of the <a href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem">problem</a> first proposed by Georges-Louis Leclerc, Comte de Buffon. The way that I have written this gives you a Monte Carlo method approximating &#x1D70B;.</p>
+                <p>I created the visualization with <a href="https://p5js.org">p5.js</a>.</p>
+            </div>
+            <div class="div-child">
+                <p id="pi_est"></p>
+            </div>
+            <div class="div-child">
+                <div id="sketch-holder"></div>
+            </div>
         </div>
-        <script>
-            let line_coordinates = [];
-            let needle_coordinates = [];
-            var t;
-            var n_lines = 5;
-            var n = 0;
-            var h = 0;
-            var l;
-            var pi_est;
-            function setup () {
-                createCanvas(720, 540);
-                background(0);
-                noFill();
-
-                stroke(255, 255, 255);
-                t = width/n_lines;
-                for (let i = 0; i <= width; i+=width/n_lines) {
-                    line(i, 0, i, height);
-                    line_coordinates.push(i);
-                }
-                frameRate(120)
-            }
-
-            function range(start, stop, step) {
-                var a = [start], b = start;
-                while (b < stop) {
-                    a.push(b += step || 1);
-                }
-                return a;
-            }
-
-            function draw () {
-                n++;
-                l = width/n_lines;
-                let needle_range = []
-                var m = Math.ceil(random(0,90))
-                x_1 = Math.floor(random(0, width));
-                y_1 = Math.floor(random(0, height));
-                x_2 = Math.ceil(x_1 + l*Math.cos(m/Math.PI))
-                y_2 = Math.ceil(y_1 + l*Math.sin(m/Math.PI))
-                if (x_1 < x_2) {
-                    needle_range = range(x_1, x_2, 1);
-                } else {
-                    needle_range = range(x_2, x_1, 1);
-                }
-                stroke(255, 204, 0);
-                line(x_1, y_1, x_2, y_2);
-                var tmp = line_coordinates.filter(value => -1 !== needle_range.indexOf(value));
-                if (tmp.length != 0) {
-                    h++;
-                }
-                pi_est = (2*n) / h
-                document.getElementById("pi_est").innerHTML = pi_est;
-            }
-        </script>
     </body>
 </html>
